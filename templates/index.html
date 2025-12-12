@@ -19,7 +19,7 @@
       background-repeat: no-repeat;
 
       font-family: 'Fancy', cursive;
-      color: #154c65;
+      color: #ffcb4c;
 
       display: flex;
       justify-content: center;
@@ -34,7 +34,7 @@
     hr {
       width: 50%;          /* smaller line */
       margin: 20px auto;   /* center it */
-      border: 1px solid #154c65;
+      border: 1px solid #ffcb4c;
       opacity: 0.7;
     }
 
@@ -82,7 +82,7 @@
     const now = new Date();
     const hours = now.getHours();          // 0–23
 
-    if (hours >= 22 || hours < 6) {        // from 20:00 to 05:59 → night background
+    if (hours >= 23 || hours < 6) {        // from 20:00 to 05:59 → night background
         document.body.style.backgroundImage = "url('/static/night_bg.png')";
         document.body.style.color = "#abbabd";
         document.querySelectorAll('hr').forEach(hr => {
@@ -91,17 +91,18 @@
         });
     } else {                               // day background
         document.body.style.backgroundImage = "url('/static/background.png')";
-        document.body.style.color = "#154c65";
+        document.body.style.color = "#ffcb4c";
         document.querySelectorAll('hr').forEach(hr => {
-            hr.style.borderColor = '#154c65';     // or a darker pink for night if you prefer
+            hr.style.borderColor = '#ffcb4c';     // or a darker pink for night if you prefer
             hr.style.opacity = '0.9';
         });
     }
   }
 
-  const messages = ["Love you.. but really - yes I do :)", "Enjoy your time with Zoe <3", "Please paint on my hands more - I love it (and fine maybe I don't show it but I really do)", "Hm. I might hug you today", "How do you always look so good? Really though, how?", "Hope you like the musical :) I'll try to find you before the show", "Last day of school yayy!! Please video call me on the holidays, I'll miss seeing you :("];
+  const messages = ["Love you.. but really - yes I do :)", "Enjoy your time with Zoe <3", "Please paint on my hands more - I love it (and fine maybe I don't show it but I really do)", "Hm. I might hug you today", "How do you always look so good? Really though, how?", "Hope you like the musical :) I'll try to find you before the show",
+    "Last day of school yayy!! Please video call me on the holidays, I'll miss seeing you :( ❤︎"];
   const day = new Date().getDate();
-  document.getElementById("wish").textContent = messages[day-12];
+  document.getElementById("wish").textContent = messages[day-11];
 
   setInterval(updateCountdown, 1000);
   setInterval(updateBackground, 60000);
