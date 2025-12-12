@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Background Website</title>
+  <style>
+    @font-face {
+      font-family: 'Fancy';
+      src: url('fonts/fancy.ttf') format('truetype');
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      background-image: url('/static/background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      font-family: 'Fancy', cursive;
+      color: #ffadad;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+    }
+
+    .container {
+      text-align: center; /* center all content inside */
+    }
+
+    hr {
+      width: 50%;          /* smaller line */
+      margin: 20px auto;   /* center it */
+      border: 1px solid #ffadad;
+      opacity: 0.7;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="message">Please wait...</div>
+    <hr>
+    <div id="countdown"></div>
+  </div>
+
+
+<script>
+  function timeUntilValentines() {
+    const now = new Date();
+    const year = now.getFullYear();
+
+    let valentines = new Date(year, 1, 14);
+
+    if (now > valentines) {
+      valentines = new Date(year + 1, 1, 14);
+    }
+
+    const diff = valentines - now;
+
+    const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours   = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    return { days, hours, minutes, seconds };
+  }
+
+  function updateCountdown() {
+    const t = timeUntilValentines();
+    document.getElementById("countdown").textContent =
+      `${t.days} days, ${t.hours} hours, ${t.minutes} minutes and ${t.seconds} seconds`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+</body>
+</html>

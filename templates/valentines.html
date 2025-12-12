@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Background Website</title>
+  <style>
+    @font-face {
+      font-family: 'Fancy';
+      src: url('fonts/fancy.ttf') format('truetype');
+    }
+    body {
+        margin: 0;
+        height: 100vh;
+        background-image: url('/static/background_val.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        font-family: 'Fancy', cursive;
+        color: #ffadad;
+
+        display: flex;
+        justify-content: flex-start; /* align left horizontally */
+        align-items: flex-start;     /* align top vertically */
+
+        font-size: 2rem;
+        padding: 40px; /* optional: adds breathable space from the edge */
+    }
+
+    .container {
+      text-align: left;
+    }
+
+    hr {
+      margin: 20px auto;   /* center it */
+      opacity: 0;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="message">Dear Darina, <hr> Below is a stupid example of a crappy gift I give to people. This is a list of twelve things that I love about you </div>
+    <hr style="margin: 0px">
+    <ol>
+      <li> Whenever we lock eyes when someone says the wildest stuff ever </li>
+      <li> Your eyes... real though </li>
+      <li> Whenever you say that you hate me </li>
+      <li> When you draw on my hands (sure I pretend not to like it but cmon I never erase them on purpose) </li>
+      <li> How you always wave to me in the corridors </li>
+      <li> How you always find a way, and I'm not joking, but how you always find a way to look insanely good </li>
+      <li> When we hold hands... cliche but real </li>
+      <li> When we spend wayy to long on a call </li>
+      <li> Your smile... again, cliche and real </li>
+      <li> When you laugh </li>
+      <li> The way in which you genuinely care about things </li>
+      <li> How you always put an utterly stupid smile on my face </li>
+    </ol>
+    <>
+  </div>
+  <hr>
+
+
+<script>
+  function timeUntilValentines() {
+    const now = new Date();
+    const year = now.getFullYear();
+
+    let valentines = new Date(year, 1, 14);
+
+    if (now > valentines) {
+      valentines = new Date(year + 1, 1, 14);
+    }
+
+    const diff = valentines - now;
+
+    const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours   = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    return { days, hours, minutes, seconds };
+  }
+
+  function updateCountdown() {
+    const t = timeUntilValentines();
+    document.getElementById("countdown").textContent =
+      `${t.days} DAYS, ${t.hours} hours, ${t.minutes} minutes and ${t.seconds} seconds`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+</body>
+</html>
