@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hi Darina!</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="icon" type="image/x-icon" href="/static/icon.ico">
+  <title><3</title>
   <style>
     @font-face {
       font-family: 'Fancy';
@@ -32,7 +34,7 @@
     hr {
       width: 50%;          /* smaller line */
       margin: 20px auto;   /* center it */
-      border: 1px solid #ffadad;
+      border: 1px solid #154c65;
       opacity: 0.7;
     }
 
@@ -44,6 +46,8 @@
     <div id="message">Please wait...</div>
     <hr>
     <div id="countdown"></div>
+    <hr>
+    <div id="wish" style="font-size: 2rem; max-width: 30rem; margin: 0 auto" class="w3-animate-opacity"></div>
   </div>
 
 
@@ -74,7 +78,34 @@
       `${t.days} days, ${t.hours} hours, ${t.minutes} minutes and ${t.seconds} seconds`;
   }
 
+  function updateBackground() {
+    const now = new Date();
+    const hours = now.getHours();          // 0–23
+
+    if (hours >= 22 || hours < 6) {        // from 20:00 to 05:59 → night background
+        document.body.style.backgroundImage = "url('/static/night_bg.png')";
+        document.body.style.color = "#abbabd";
+        document.querySelectorAll('hr').forEach(hr => {
+            hr.style.borderColor = '#abbabd';     // or a darker pink for night if you prefer
+            hr.style.opacity = '0.9';
+        });
+    } else {                               // day background
+        document.body.style.backgroundImage = "url('/static/background.png')";
+        document.body.style.color = "#154c65";
+        document.querySelectorAll('hr').forEach(hr => {
+            hr.style.borderColor = '#154c65';     // or a darker pink for night if you prefer
+            hr.style.opacity = '0.9';
+        });
+    }
+  }
+
+  const messages = ["Love you.. but really - yes I do :)", "Enjoy your time with Zoe <3", "Please paint on my hands more - I love it (and fine maybe I don't show it but I really do)", "Hm. I might hug you today", "How do you always look so good? Really though, how?", "Hope you like the musical :) I'll try to find you before the show", "Last day of school yayy!! Please video call me on the holidays, I'll miss seeing you :("];
+  const day = new Date().getDate();
+  document.getElementById("wish").textContent = messages[day-12];
+
   setInterval(updateCountdown, 1000);
+  setInterval(updateBackground, 60000);
+  updateBackground();
   updateCountdown();
 </script>
 
