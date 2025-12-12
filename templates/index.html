@@ -10,6 +10,9 @@
       font-family: 'Fancy';
       src: url('fonts/fancy.ttf') format('truetype');
     }
+    :root {
+      --heart-color: #FFFFFF;   /* default = day */
+    }
     body {
       margin: 0;
       height: 100vh;
@@ -38,10 +41,69 @@
       opacity: 0.7;
     }
 
+    .topbar {
+      position: fixed;           /* or use "sticky" if you want it to scroll then stick */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;             /* keeps it above other content */
+      box-sizing: border-box;
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 60px;              /* adjust padding to make it wider/shorter */
+
+      font-size: 15px;
+      font-weight: 900;                /* extra bold */
+      letter-spacing: 1px;
+      color: #abbabd;                  /* gold-yellow text */
+      background: transparent;
+      border: 3px solid #abbabd;       /* thick yellow border */
+      border-radius: 50px;             /* pill shape */
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    button:hover {
+      box-shadow:
+        0 0 20px #abbabd,
+        0 0 40px #abbabd,
+        0 0 70px rgb(171, 186, 189);
+      transform: translateY(-3px);
+    }
+
+    .heart {
+      position: fixed;
+      left: 0;
+      color: var(--heart-color);
+      font-size: 30px;
+      pointer-events: none;        /* doesn't block clicks */
+      animation: fall linear forwards;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
   </style>
 </head>
 
 <body>
+  <div class = "topbar" >
+    <button> Click Me! ❤︎ </button>
+  </div>
   <div class="container">
     <div id="message">Please wait...</div>
     <hr>
@@ -89,6 +151,8 @@
             hr.style.borderColor = '#abbabd';     // or a darker pink for night if you prefer
             hr.style.opacity = '0.9';
         });
+        document.documentElement.style.setProperty('--heart-color', "#abbabd");
+
     } else {                               // day background
         document.body.style.backgroundImage = "url('/static/background.png')";
         document.body.style.color = "#ffcb4c";
@@ -96,8 +160,29 @@
             hr.style.borderColor = '#ffcb4c';     // or a darker pink for night if you prefer
             hr.style.opacity = '0.9';
         });
+        document.querySelectorAll("button").forEach(button => {
+          button.style.color = "#6e4f00"
+          button.style.border = "3px solid #6e4f00"
+        });
+        document.documentElement.style.setProperty('--heart-color', "#ffcb4c");
+
     }
   }
+
+  document.querySelector('button').addEventListener('click', function(e) {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.textContent = '♡';
+
+    heart.style.left = (e.clientX - 15 +Math.random() * 45) + 'px';
+    heart.style.top  = (e.clientY - 15) + 'px';
+
+    heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+
+    document.body.appendChild(heart);
+
+    heart.addEventListener('animationend', () => heart.remove());
+  });
 
   const messages = ["Love you.. but really - yes I do :)", "Enjoy your time with Zoe <3", "Please paint on my hands more - I love it (and fine maybe I don't show it but I really do)", "Hm. I might hug you today", "How do you always look so good? Really though, how?", "Hope you like the musical :) I'll try to find you before the show",
     "Last day of school yayy!! Please video call me on the holidays, I'll miss seeing you :( ❤︎"];
