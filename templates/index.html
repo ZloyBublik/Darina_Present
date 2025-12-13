@@ -103,6 +103,8 @@
 <body>
   <div class = "topbar" >
     <button> Click Me! ❤︎ </button>
+    <button onclick="window.location.href='whosaidit'"> Play a game </button>
+
   </div>
   <div class="container">
     <div id="message">Please wait...</div>
@@ -144,7 +146,7 @@
     const now = new Date();
     const hours = now.getHours();          // 0–23
 
-    if (hours >= 23 || hours < 6) {        // from 20:00 to 05:59 → night background
+    if (hours >= 20 || hours < 6) {        // from 20:00 to 05:59 → night background
         document.body.style.backgroundImage = "url('/static/night_bg.png')";
         document.body.style.color = "#abbabd";
         document.querySelectorAll('hr').forEach(hr => {
@@ -184,7 +186,7 @@
     heart.addEventListener('animationend', () => heart.remove());
   });
 
-  const messages = ["Love you.. but really - yes I do :)", "Enjoy your time with Zoe <3", "Please paint on my hands more - I love it (and fine maybe I don't show it but I really do)", "Hm. I might hug you today", "How do you always look so good? Really though, how?", "Hope you like the musical :) I'll try to find you before the show",
+  const messages = ["Love you.. but really - yes I do :)", "Pls get better <3", "Please paint on my hands more - I love it (and fine maybe I don't show it but I really do)", "Hm. I might hug you today", "How do you always look so good? Really though, how?", "Hope you like the musical :) I'll try to find you before the show",
     "Last day of school yayy!! Please video call me on the holidays, I'll miss seeing you :( ❤︎"];
   const day = new Date().getDate();
   document.getElementById("wish").textContent = messages[day-12];

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="icon" type="image/x-icon" href="/static/icon.ico">
+  <title><3</title>
+  <style>
+    @font-face {
+      font-family: 'Fancy';
+      src: url('fonts/fancy.ttf') format('truetype');
+    }
+    :root {
+      --heart-color: #FFFFFF;   /* default = day */
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      background-image: url('/static/background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      font-family: 'Fancy', cursive;
+      color: #ffcb4c;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 4rem;
+    }
+
+    .container {
+      text-align: center; /* center all content inside */
+    }
+
+    div.options {
+      width:100%;
+      overflow:auto;
+    }
+
+    div.options div {
+      width:90%;
+      float:left;
+    }
+
+    hr {
+      width: 50%;          /* smaller line */
+      margin: 20px auto;   /* center it */
+      border: 1px solid #ffcb4c;
+      opacity: 0.7;
+    }
+
+    .topbar {
+      position: fixed;           /* or use "sticky" if you want it to scroll then stick */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;             /* keeps it above other content */
+      box-sizing: border-box;
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 60px;              /* adjust padding to make it wider/shorter */
+
+      font-size: 15px;
+      font-weight: 900;                /* extra bold */
+      letter-spacing: 1px;
+      color: #abbabd;                  /* gold-yellow text */
+      background: transparent;
+      border: 3px solid #abbabd;       /* thick yellow border */
+      border-radius: 50px;             /* pill shape */
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    button:hover {
+      box-shadow:
+        0 0 20px #abbabd,
+        0 0 40px #abbabd,
+        0 0 70px rgb(171, 186, 189);
+      transform: translateY(-3px);
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 40px;              /* space between the two options */
+      margin-top: 40px;
+    }
+
+    .option-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 80px;     /* bigger clickable area */
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #ffcb4c;
+      background: transparent;
+      border: 3px solid #ffd264;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      min-width: 200px;
+    }
+
+    .option-btn:hover {
+      transform: translateY(-3px);
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class = "topbar" >
+    <button onclick="window.location.href='/'"> Back To Main </button>
+  </div>
+  <div class="container">
+    <div class="heading-text"> Who Said It? </div>
+    <div class="main-game">
+      <div class="message-1" id="demo", style="max-width: 50vw; font-size: 25px"> </div>
+      <div class="options">
+        <div class="option-btn" id="darina-btn">Darina</div>
+        <div class="option-btn" id="mika-btn">Mika</div>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+
+  function updateBackground() {
+    const now = new Date();
+    const hours = now.getHours();          // 0–23
+
+    if (hours >= 23 || hours < 6) {        // from 20:00 to 05:59 → night background
+        document.body.style.backgroundImage = "url('/static/night_bg.png')";
+        document.body.style.color = "#abbabd";
+        document.querySelectorAll('hr').forEach(hr => {
+            hr.style.borderColor = '#abbabd';     // or a darker pink for night if you prefer
+            hr.style.opacity = '0.9';
+        });
+        document.documentElement.style.setProperty('--heart-color', "#abbabd");
+
+    } else {                               // day background
+        document.body.style.backgroundImage = "url('/static/background.png')";
+        document.body.style.color = "#ffcb4c";
+        document.querySelectorAll('hr').forEach(hr => {
+            hr.style.borderColor = '#ffcb4c';     // or a darker pink for night if you prefer
+            hr.style.opacity = '0.9';
+        });
+        document.querySelectorAll("button").forEach(button => {
+          button.style.color = "#6e4f00"
+          button.style.border = "3px solid #6e4f00"
+        });
+        document.documentElement.style.setProperty('--heart-color', "#ffcb4c");
+
+    }
+  }
+
+  const people = [
+  { name: "Darina", file: "/static/darina.txt" },
+  { name: "Mika",   file: "/static/mika.txt" }
+];
+
+// Function to load and display a random message
+
+  var i = 0;
+  var txt = 'Lorem ipsum dummy text blabla.';
+  var speed = 55;
+  var ans = "";
+
+  function typeWriter() {
+    if (i < txt.length) {
+      document.getElementById("demo").innerHTML += txt.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  const darinaButton = document.getElementById('darina-btn');
+  const mikaButton = document.getElementById('mika-btn');
+
+  darinaButton.addEventListener('click', function() {
+    if (ans == "Darina") {
+      document.getElementById("darina-btn").style.color = "#9aff81"
+      document.getElementById("darina-btn").style.borderColor = "#9aff81"
+      document.getElementById("mika-btn").style.color = "#ff8181"
+      document.getElementById("mika-btn").style.borderColor = "#ff8181"
+      setTimeout(function(){
+        location.reload();
+      }, 1000);
+
+
+    } else {
+      if (txt == '"Love you"') {
+        document.getElementById("mika-btn").style.color = "#9aff81"
+        document.getElementById("mika-btn").style.borderColor = "#9aff81"
+        document.getElementById("darina-btn").style.color = "#9aff81"
+        document.getElementById("darina-btn").style.borderColor = "#9aff81"
+        setTimeout(function () {
+          location.reload();
+        }, 1500);
+      } else {
+        document.getElementById("darina-btn").style.color = "#ff8181"
+        document.getElementById("darina-btn").style.borderColor = "#ff8181"
+        document.getElementById("mika-btn").style.color = "#9aff81"
+        document.getElementById("mika-btn").style.borderColor = "#9aff81"
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      }
+    }
+  });
+
+  mikaButton.addEventListener('click', function() {
+    if (ans == "Mika") {
+      if (txt == '"Love you"') {
+        document.getElementById("mika-btn").style.color = "#9aff81"
+        document.getElementById("mika-btn").style.borderColor = "#9aff81"
+        document.getElementById("darina-btn").style.color = "#9aff81"
+        document.getElementById("darina-btn").style.borderColor = "#9aff81"
+        setTimeout(function () {
+          location.reload();
+        }, 1500);
+      } else {
+        document.getElementById("mika-btn").style.color = "#9aff81"
+        document.getElementById("mika-btn").style.borderColor = "#9aff81"
+        document.getElementById("darina-btn").style.color = "#ff8181"
+        document.getElementById("darina-btn").style.borderColor = "#ff8181"
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      }
+    } else {
+      document.getElementById("mika-btn").style.color = "#ff8181"
+      document.getElementById("mika-btn").style.borderColor = "#ff8181"
+      document.getElementById("darina-btn").style.color = "#9aff81"
+      document.getElementById("darina-btn").style.borderColor = "#9aff81"
+      setTimeout(function(){
+        location.reload();
+      }, 1000);
+
+    }
+  });
+  async function loadRandomMessage() {
+    // 1. Randomly choose a person
+    const person = people[Math.floor(Math.random() * people.length)];
+    ans = person.name;
+
+    try {
+      // 2. Fetch the text file
+      const response = await fetch(person.file);
+      if (!response.ok) throw new Error("File not found");
+
+      const text = await response.text();
+
+      // 3. Split into lines and filter out empty ones
+      const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+      if (lines.length === 0) {
+        document.querySelector('.message-1').textContent = "No messages found 😔";
+        return;
+      }
+
+      // 4. Pick a random message
+      const randomMessage = lines[Math.floor(Math.random() * lines.length)];
+
+      // 5. Display it
+      txt = `"${randomMessage}"`;
+
+      typeWriter()
+
+      // Optional: also show who said it (you can remove this if you don't want hints)
+      // document.querySelector('.heading-text').textContent = `Who Said It? (${person.name})`;
+
+    } catch (error) {
+      document.querySelector('.message-1').textContent = "Error loading message 😢";
+      console.error(error);
+    }
+  }
+
+
+  window.addEventListener('load', loadRandomMessage);
+  setInterval(updateBackground, 60000);
+  updateBackground();
+</script>
+
+</body>
+</html>
