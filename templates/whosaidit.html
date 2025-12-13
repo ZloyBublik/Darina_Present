@@ -131,7 +131,7 @@
     <div class="heading-text"> Who Said It? </div>
     <div class="main-game">
       <div class="message-1" id="demo", style="max-width: 50vw; font-size: 25px"> </div>
-      <div class="options">
+      <div class="options" style="z-index: 10">
         <div class="option-btn" id="darina-btn">Darina</div>
         <div class="option-btn" id="mika-btn">Mika</div>
       </div>
@@ -145,7 +145,7 @@
     const now = new Date();
     const hours = now.getHours();          // 0–23
 
-    if (hours >= 23 || hours < 6) {        // from 20:00 to 05:59 → night background
+    if (hours >= 20 || hours < 6) {        // from 20:00 to 05:59 → night background
         document.body.style.backgroundImage = "url('/static/night_bg.png')";
         document.body.style.color = "#abbabd";
         document.querySelectorAll('hr').forEach(hr => {
@@ -153,6 +153,14 @@
             hr.style.opacity = '0.9';
         });
         document.documentElement.style.setProperty('--heart-color', "#abbabd");
+        document.querySelectorAll("button").forEach(button => {
+          button.style.color = "#abbabd"
+          button.style.border = "3px solid #abbabd"
+        });
+        document.getElementById("darina-btn").style.color = "#abbabd"
+        document.getElementById("mika-btn").style.color = "#abbabd"
+        document.getElementById("darina-btn").style.borderColor = "#abbabd"
+        document.getElementById("mika-btn").style.borderColor = "#abbabd"
 
     } else {                               // day background
         document.body.style.backgroundImage = "url('/static/background.png')";
@@ -166,6 +174,10 @@
           button.style.border = "3px solid #6e4f00"
         });
         document.documentElement.style.setProperty('--heart-color', "#ffcb4c");
+        document.getElementById("darina-btn").style.color = "#ffcb4c"
+        document.getElementById("mika-btn").style.color = "#ffcb4c"
+        document.getElementById("darina-btn").style.borderColor = "#ffcb4c"
+        document.getElementById("mika-btn").style.borderColor = "#ffcb4c"
 
     }
   }
