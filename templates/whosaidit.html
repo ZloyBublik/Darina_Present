@@ -191,8 +191,10 @@
 
   var i = 0;
   var txt = 'Lorem ipsum dummy text blabla.';
+  const past_qs = [];
   var speed = 55;
   var ans = "";
+  var recursion_count = 0;
 
   function typeWriter() {
     if (i < txt.length) {
@@ -212,7 +214,8 @@
       document.getElementById("mika-btn").style.color = "#ff8181"
       document.getElementById("mika-btn").style.borderColor = "#ff8181"
       setTimeout(function(){
-        location.reload();
+        loadRandomMessage();
+        updateBackground();
       }, 1000);
 
 
@@ -230,8 +233,9 @@
         document.getElementById("darina-btn").style.borderColor = "#ff8181"
         document.getElementById("mika-btn").style.color = "#9aff81"
         document.getElementById("mika-btn").style.borderColor = "#9aff81"
-        setTimeout(function () {
-          location.reload();
+        setTimeout(function(){
+          loadRandomMessage();
+          updateBackground();
         }, 1000);
       }
     }
@@ -244,16 +248,18 @@
         document.getElementById("mika-btn").style.borderColor = "#9aff81"
         document.getElementById("darina-btn").style.color = "#9aff81"
         document.getElementById("darina-btn").style.borderColor = "#9aff81"
-        setTimeout(function () {
-          location.reload();
+        setTimeout(function(){
+          loadRandomMessage();
+          updateBackground();
         }, 1500);
       } else {
         document.getElementById("mika-btn").style.color = "#9aff81"
         document.getElementById("mika-btn").style.borderColor = "#9aff81"
         document.getElementById("darina-btn").style.color = "#ff8181"
         document.getElementById("darina-btn").style.borderColor = "#ff8181"
-        setTimeout(function () {
-          location.reload();
+        setTimeout(function(){
+          loadRandomMessage();
+          updateBackground();
         }, 1000);
       }
     } else {
@@ -262,7 +268,8 @@
       document.getElementById("darina-btn").style.color = "#9aff81"
       document.getElementById("darina-btn").style.borderColor = "#9aff81"
       setTimeout(function(){
-        location.reload();
+        loadRandomMessage();
+        updateBackground();
       }, 1000);
 
     }
@@ -289,17 +296,32 @@
 
       // 4. Pick a random message
       const randomMessage = lines[Math.floor(Math.random() * lines.length)];
-
+      if (past_qs.includes(randomMessage)) {
+        recursion_count = recursion_count + 1
+        if (recursion_count > 20) {
+          txt = "Sorry I ran out of messages lol, text me if this happens <3";
+          i = 0;
+          document.getElementById("demo").textContent = ""
+          typeWriter();
+        } else {
+          return loadRandomMessage();
+        }
+      } else {
+        txt = `"${randomMessage}"`;
+        recursion_count = 0;
+        i = 0;
+        past_qs.push(randomMessage);
+        document.getElementById("demo").textContent = ""
+        typeWriter()
+      }
       // 5. Display it
-      txt = `"${randomMessage}"`;
 
-      typeWriter()
 
       // Optional: also show who said it (you can remove this if you don't want hints)
       // document.querySelector('.heading-text').textContent = `Who Said It? (${person.name})`;
 
     } catch (error) {
-      document.querySelector('.message-1').textContent = "Error loading message 😢";
+      document.querySelector('.message-1').textContent = "Think I ran out of messages :(";
       console.error(error);
     }
   }
