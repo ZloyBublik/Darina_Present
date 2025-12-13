@@ -90,6 +90,13 @@
       z-index: 9999;
     }
 
+    .w3-animate-opacity.crossed {
+      text-decoration: line-through;
+      text-decoration-color: #ff8181;
+      animation: ease-in;
+      animation-duration: auto;
+    }
+
     @keyframes fall {
       to {
         transform: translateY(100vh);
@@ -112,6 +119,7 @@
     <div id="countdown" style="max-width: 70vw"></div>
     <hr>
     <div id="wish" style="font-size: 2rem; max-width: 30vw; margin: 0 auto" class="w3-animate-opacity"></div>
+    <div id = "wish-2" style="font-size: 2rem; max-width: 30vw; margin: 0 auto" > </div>
   </div>
 
 
@@ -190,6 +198,17 @@
     "Last day of school yayy!! Please video call me on the holidays, I'll miss seeing you :( ❤︎"];
   const day = new Date().getDate();
   document.getElementById("wish").textContent = messages[day-12];
+
+  if ((day-12) == 3) {
+    setTimeout(function () {
+      const oldElement = document.getElementById("wish");
+      oldElement.classList.add("crossed")
+      setTimeout(function() {
+        const newMessage = document.getElementById("wish-2");
+        newMessage.textContent = "I will <3"
+      }, 1000 )
+    }, 1500);
+  }
 
   setInterval(updateCountdown, 1000);
   setInterval(updateBackground, 60000);
