@@ -194,12 +194,12 @@
     heart.addEventListener('animationend', () => heart.remove());
   });
 
-  const messages = ["Love you.. but really - yes I do :)", "Pls get better <3", "Please paint on my hands more - I love it (and fine maybe I don't show it but I really do)", "Hm. I might hug you today", "How do you always look so good? Really though, how?", "Hope you like the musical :) I'll try to find you before the show",
+  const messages = ["Love you.. but really - yes I do :)", "Pls get better <3", "Please paint on my hands more - I love it (and fine maybe I don't show it but I really do)", "How do you always look so good? Genuine question tho, what kind of dark magic is at play here", "Hm. I might hug you today", "Please text me when you see this bc there is a 67% chance im crashing out bc of the musical", "Hope you like the musical :) I'll try to find you before the show",
     "Last day of school yayy!! Please video call me on the holidays, I'll miss seeing you :( ❤︎"];
   const day = new Date().getDate();
   document.getElementById("wish").textContent = messages[day-12];
 
-  if ((day-12) == 3) {
+  if ((day-12) == 4) {
     setTimeout(function () {
       const oldElement = document.getElementById("wish");
       oldElement.classList.add("crossed")
