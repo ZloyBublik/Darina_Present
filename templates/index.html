@@ -110,6 +110,7 @@
 <body>
   <div class = "topbar" >
     <button> Click Me! ❤︎ </button>
+    <a><img src="https://i.ibb.co/VpksbTt3/cutie.png" alt="I <3 U" width=100vw></a>
     <button onclick="window.location.href='whosaidit'"> Play a game </button>
 
   </div>
@@ -194,23 +195,11 @@
     heart.addEventListener('animationend', () => heart.remove());
   });
 
-  const messages = ["Love you.. but really - yes I do :)", "Pls get better <3", "Please paint on my hands more - I love it (and fine maybe I don't show it but I really do)", "How do you always look so good? Genuine question tho, what kind of dark magic is at play here", "I miss you :(",
-    "Please text me when you see this bc there is a 67% chance im crashing out bc of the musical", "Hm. I might hug you today",
-    "Last day of school yayy!! Please video call me on the holidays, I'll miss seeing you :( ❤︎"];
+  const messages = ["Last day of school yayy!! Please video call me on the holidays, I'll miss seeing you :( ❤︎", "Dude pls tell me we got to hang out and ur mum didn't say no", "Guess who is flying to Latvia today woohoo (no, not excited)",
+    "Already miss seeing you :( maybe send me a cute selfie? Ugh it'll be cute either way lol", "Want to call and revise for bio together? Or just call maybe?", "You know I just realised I'll write a total of 70 messages until valentines... what this website turns into after is a secret", "Merry Christmas!!! I know you don't celebrate but still"
+    ];
   const day = new Date().getDate();
-  document.getElementById("wish").textContent = messages[day-12];
-
-  if ((day-12) == 6) {
-    setTimeout(function () {
-      const oldElement = document.getElementById("wish");
-      oldElement.classList.add("crossed")
-      setTimeout(function() {
-        const newMessage = document.getElementById("wish-2");
-        newMessage.textContent = "I will <3"
-      }, 1000 )
-    }, 1500);
-  }
-
+  document.getElementById("wish").textContent = messages[day-19];
   setInterval(updateCountdown, 1000);
   setInterval(updateBackground, 60000);
   updateBackground();
